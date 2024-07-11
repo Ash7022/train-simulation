@@ -1,4 +1,3 @@
-// src/train/train.service.ts
 import { Injectable } from '@nestjs/common';
 import { TrainBlock } from './train.model';
 

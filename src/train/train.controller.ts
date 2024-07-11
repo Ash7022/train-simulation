@@ -1,4 +1,3 @@
-// src/train/train.controller.ts
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { TrainService } from './train.service';
 import { TrainBlock } from './train.model';
