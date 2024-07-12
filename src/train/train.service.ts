@@ -45,20 +45,13 @@ export class TrainService {
         }
     
         if (block.action_by && block.action_by.includes(role)) {
-          block.status = action;
-    
-          // Handle next role actions and default status setting
-          const nextRoles = block.next_role;
-          if (action === 'ACTIVE' && nextRoles.length > 0) {
-            nextRoles.forEach(nextRole => {
-              Object.values(this.trainBlocksdto).forEach(tb => {
-                if (tb.present_role === nextRole) {
-                  tb.status = 'INACTIVE';
-                }
-              });
-            });
-            block.status = 'ACTIVE';
+
+          if(block.actions && block.actions.includes(action)){
+            block.status = action;
           }
+          else return `"${action}" action is not available for this block existing actions: ${block.actions}`;
+    
+          
     
           return `Action ${action} performed by ${role} on block ${id} with present role ${block.present_role}`;
         } else {
