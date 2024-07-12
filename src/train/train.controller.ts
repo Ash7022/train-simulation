@@ -1,29 +1,29 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
-import { TrainService } from './train.service';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { TrainBlock } from './train.model';
+import { TrainService } from './train.service';
+import { TrainBlockdto } from './dto';
 
 @Controller('train')
 export class TrainController {
-  constructor(private readonly trainService: TrainService) {}
+    constructor (private readonly TrainService: TrainService){}
+    @Post()
+    SetTrainBlocks(@Body() blocks:TrainBlockdto){
+        this.TrainService.SetTrainBlocks(blocks);
+        return { message: 'Train blocks set successfully' };
+    }
+    @Get()
+    getTrainblocks(){
+        return this.TrainService.getTrainBlocks();
+    }
 
-  @Post()
-  setTrainBlocks(@Body() blocks: { [key: string]: TrainBlock }) {
-    this.trainService.setTrainBlocks(blocks);
-    return { message: 'Train blocks set successfully' };
+    @Get('active')
+    getAllActiveBlocks() {
+    return this.TrainService.getAllActiveBlocks();
+    
   }
-
-  @Get()
-  getAllBlocks(): { [key: string]: TrainBlock } {
-    return this.trainService.getAllBlocks();
-  }
-  @Get('active')
-  getAllActiveBlocks(): { [key: string]: TrainBlock } {
-    return this.trainService.getAllActiveBlocks();
-  }
-
   @Get(':id')
-  getBlockById(@Param('id') id: string): TrainBlock {
-    return this.trainService.getBlockById(id);
+  getBlockById(@Param('id') id: string){
+    return this.TrainService.getBlockById(id);
   }
 
   
@@ -33,7 +33,7 @@ export class TrainController {
     @Param('id') id: string,
     @Body('role') role: string,
     @Body('action') action: string,
-  ): string {
-    return this.trainService.performAction(id, role, action);
+  ) {
+    return this.TrainService.performAction(id, role, action);
   }
 }
