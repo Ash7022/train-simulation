@@ -7,7 +7,7 @@ import { TrainBlockdto } from './dto';
 export class TrainController {
     constructor (private readonly TrainService: TrainService){}
     @Post()
-    SetTrainBlocks(@Body() blocks:TrainBlockdto){
+    SetTrainBlocks(@Body() blocks:{ [key: string]: TrainBlockdto }){
         this.TrainService.SetTrainBlocks(blocks);
         return { message: 'Train blocks set successfully' };
     }

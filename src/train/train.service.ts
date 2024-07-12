@@ -4,9 +4,9 @@ import { TrainBlockdto } from './dto';
 
 @Injectable()
 export class TrainService {
-    private trainBlocksdto: TrainBlockdto;
+  private trainBlocksdto: { [key: string]: TrainBlockdto } = {};
 
-    SetTrainBlocks(blocks:TrainBlockdto){
+    SetTrainBlocks(blocks:{ [key: string]: TrainBlockdto }){
         this.trainBlocksdto = blocks;
     }
 
@@ -15,7 +15,7 @@ export class TrainService {
     }
 
     getAllActiveBlocks(){
-        const ActivetrainBlocks: { [key: string]: TrainBlock } = {};
+        const ActivetrainBlocks: { [key: string]: TrainBlockdto } = {};
     var currentkey =1;
     for (const key in this.trainBlocksdto) {
       if (this.trainBlocksdto[key].hasOwnProperty('status') && this.trainBlocksdto[key].present_role!=='Engine') {
